@@ -1,0 +1,19 @@
+{
+  "routes": [
+    {
+      "prefix": "/ollama",
+      "target": "http://127.0.0.1:11434",
+      "strip_prefix": true
+    },
+    {
+      "prefix": "/fsm",
+      "target": "http://127.0.0.1:8800",
+      "strip_prefix": true
+    },
+    {
+      "prefix": "/coq",
+      "target": "http://127.0.0.1:9091",
+      "strip_prefix": true
+    }
+  ]
+}
