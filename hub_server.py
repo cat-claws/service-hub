@@ -56,6 +56,15 @@ class Hub(BaseHTTPRequestHandler):
         self.send_header("Access-Control-Allow-Headers", CORS_H)
         self.send_header("Access-Control-Allow-Methods", CORS_M)
 
+    @staticmethod
+    def _skip_resp_header(name: str) -> bool:
+        n = name.lower()
+        if n in HOP or n == "content-length":
+            return True
+        if n.startswith("access-control-allow-"):
+            return True
+        return False
+
     def _json(self, code: int, obj):
         b = json.dumps(obj, indent=2).encode()
         self.send_response(code)
@@ -127,8 +136,7 @@ class Hub(BaseHTTPRequestHandler):
 
         self.send_response(r.status)
         for k, v in r.getheaders():
-            kl = k.lower()
-            if kl not in HOP and kl != "content-length":
+            if not self._skip_resp_header(k):
                 self.send_header(k, v)
         self.send_header("Content-Length", str(len(rb)))
         self._cors(); self.end_headers(); self.wfile.write(rb); c.close()

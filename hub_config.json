@@ -7,7 +7,7 @@
     },
     {
       "prefix": "/fsm",
-      "target": "http://127.0.0.1:8800",
+      "target": "http://127.0.0.1:8082",
       "strip_prefix": true
     },
     {
